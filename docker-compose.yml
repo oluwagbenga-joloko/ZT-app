@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  djangoapp:
+    stdin_open: true
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py seed_temp && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/opt/services/djangoapp/src
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.13
+    ports:
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - djangoapp
+      
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev.db
+
+volumes:
+  postgres_data:  

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Temperature measurement</h2>
+
+{% if temp_measurement %}
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Timestamp</th>
+    <th>Temperature</th>
+    <th>Duration</th>
+  </tr>
+    {% for measurement in temp_measurement %}
+  <tr>
+    <td>{{measurement.id}}</td>
+    <td>{{measurement.timestamp}}</td>
+    <td>{{measurement.temperature}}</td>
+    <td>{{measurement.duration}}</td>
+  </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+</body>
+</html>
