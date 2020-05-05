@@ -20,4 +20,4 @@ ENV PYTHONUNBUFFERED 1
 
 EXPOSE 8000
 
-# CMD ["gunicorn", "--bind", ":8000", "mysite.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py seed_temp && python manage.py runserver 0.0.0.0:8000"]

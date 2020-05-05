@@ -6,7 +6,5 @@ services:
     stdin_open: true
     build: .
     command: sh -c "python manage.py migrate && python manage.py seed_temp && python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/opt/services/djangoapp/src
     ports:
       - 8000:8000
