@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.7-alpine
 
 # arbitrary location choice: you can change the directory
 RUN mkdir -p /opt/services/djangoapp/src
@@ -12,10 +12,6 @@ COPY Pipfile Pipfile.lock /opt/services/djangoapp/src/
 RUN pip install pipenv && pipenv install --dev --system
 
 
-# copy entrypoint.sh
-COPY ./entrypoint.sh /opt/services/djangoapp/src/entrypoint.sh
-
-
 COPY . /opt/services/djangoapp/src
 
 # set environment variables
@@ -23,8 +19,5 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 EXPOSE 8000
-
-
-ENTRYPOINT ["/opt/services/djangoapp/src/entrypoint.sh"]
 
 # CMD ["gunicorn", "--bind", ":8000", "mysite.wsgi:application"]
